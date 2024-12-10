@@ -4,6 +4,10 @@ class Player:
         self.HP = HP
         self.attack = attack
 
+    def PlayerPunch(self, attack):
+        
+        
+
 J = Player("J", 100, 2)
 
 class Enemy:
@@ -11,4 +15,7 @@ class Enemy:
         self.name = name
         self.HP = HP
         self.attack = attack
+
+    def EnemyPunch(self, attack):
+
 
