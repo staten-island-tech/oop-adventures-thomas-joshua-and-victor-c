@@ -1,0 +1,96 @@
+import pygame
+import random
+import sys
+# class Player:
+#     def __init__(self, name, money, inventory, stats, life):
+#         self.money = money
+#         self.name = name
+#         self.inventory = inventory
+#         self.stats = stats
+#         self.life = life
+# J= 0,"MCHammer",[],
+
+# Initialize pygame
+pygame.init()
+
+# Set up screen dimensions
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Boxing Game Home Screen")
+
+# Define fonts
+font = pygame.font.SysFont(None, 36)
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+BUTTON_COLOR = (50, 150, 255)
+HOVER_COLOR = (30, 100, 200)
+
+# Game variables
+player_gold = 100  # Example gold amount
+button_font = pygame.font.SysFont(None, 48)
+
+# Button class to handle creating and rendering buttons
+class Button:
+    def __init__(self, x, y, width, height, text, action=None):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.text = text
+        self.action = action
+
+    def draw(self, surface):
+        # Change color when hovering over the button
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        if self.rect.collidepoint((mouse_x, mouse_y)):
+            pygame.draw.rect(surface, HOVER_COLOR, self.rect)
+        else:
+            pygame.draw.rect(surface, BUTTON_COLOR, self.rect)
+
+        # Draw the text on the button
+        text_surface = button_font.render(self.text, True, WHITE)
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        surface.blit(text_surface, text_rect)
+
+    def is_clicked(self):
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()
+        if self.rect.collidepoint((mouse_x, mouse_y)) and mouse_pressed[0]:
+            return True
+        return False
+
+# Create buttons for "Select Match" and "Market"
+select_match_button = Button(300, 250, 200, 50, "Select Match")
+market_button = Button(300, 350, 200, 50, "Go to Market")
+
+# Main game loop
+running = True
+while running:
+    screen.fill(BLACK)  # Set background color
+
+    # Display gold in the top left corner
+    gold_text = font.render(f"Gold: {player_gold}", True, WHITE)
+    screen.blit(gold_text, (10, 10))
+
+    # Draw buttons
+    select_match_button.draw(screen)
+    market_button.draw(screen)
+
+    # Handle button clicks
+    if select_match_button.is_clicked():
+        print("Match selected!")
+        # Code to start match would go here
+    if market_button.is_clicked():
+        print("Market opened!")
+        # Code to open the market would go here
+
+    # Handle quit event
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    pygame.display.flip()
+
+# Quit pygame
+pygame.quit()
+sys.exit()
