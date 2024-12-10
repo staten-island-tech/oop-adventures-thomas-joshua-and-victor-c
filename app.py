@@ -7,7 +7,7 @@ class Player:
         self.attack = attack
 
     def PlayerPunch(self, enemy):
-        damage = (self.attack) 
+        damage = random.randint(1, self.attack) 
         enemy.HP -= damage  
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         if enemy.HP <= 0:
@@ -15,6 +15,7 @@ class Player:
 
     def Guard(self):
         print(f"{self.name} is guarding!")
+        Guard = True
 
 class Enemy:
     def __init__(self, name, HP, attack):
@@ -23,7 +24,7 @@ class Enemy:
         self.attack = attack
 
     def EnemyPunch(self, player): 
-        damage = (self.attack)  
+        damage = random.randint(1, self.attack)  
         player.HP -= damage 
         print(f"{self.name} attacks {player.name} for {damage} damage!")
         if player.HP <= 0:
@@ -40,12 +41,12 @@ while J.HP > 0 and enemy.HP > 0:
         J.PlayerPunch(enemy)
     elif control == "guard":
         J.Guard()
-        PlayerGuard = True
+        Guard = True
     if enemy.HP <= 0:
         break  
 
     # Enemy attacks
-    if not PlayerGuard:
+    if not Guard:
         enemy.EnemyPunch(J)
     if J.HP <= 0:
         break  
