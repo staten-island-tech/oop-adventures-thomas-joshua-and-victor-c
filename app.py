@@ -23,8 +23,7 @@ class Enemy:
         self.attack = attack
 
     def EnemyAI(self):
-        for i in range(5):
-            EnemySelect = random.randint(1,2)
+        return random.randint(1, 2)
 
     def EnemyPunch(self, player): 
         damage = random.randint(1, self.attack)  
@@ -35,11 +34,13 @@ class Enemy:
 
     def EGuard(self):
         print(f"{self.name} is guarding!")
-
 # Example setup: Player vs Enemy
 J = Player("MCHammer", 100, 10)
 enemy = Enemy("Bub", 50, 10)
-# Simple battle loop
+
+PlayerGuard = False
+EnemyGuard = False
+
 while J.HP > 0 and enemy.HP > 0:
     control = input("Move? ").lower()
     enemy.EnemyAI()
@@ -52,21 +53,17 @@ while J.HP > 0 and enemy.HP > 0:
         PlayerGuard = True
         print(f"{enemy.name} could not attack!")
     if enemy.HP <= 0:
-        break  
-
-    # Enemy attacks
+        break
+    EnemySelect = enemy.EnemyAI()
     if PlayerGuard == False:
         if EnemySelect == 1:
             enemy.EnemyPunch(J)
-
     if EnemySelect == 2:
         enemy.EGuard()
         EnemyGuard = True
-        print(f"{J.name} could not attack!")
-        
+        print(f"{J.name} could not attack!")  
     if J.HP <= 0:
         break  
-
 
 if J.HP > 0:
     print(f"{J.name} wins the battle!")
