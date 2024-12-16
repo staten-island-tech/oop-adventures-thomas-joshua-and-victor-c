@@ -25,7 +25,7 @@ class Enemy:
         self.drop = drop
 
     def EnemyAI(self):
-        return random.randint(1, 2)
+        return random.randint(1, 1)
 
     def EnemyPunch(self, player): 
         damage = random.randint(1, self.attack)  
@@ -37,26 +37,77 @@ class Enemy:
         print(f"{self.name} is guarding!")
 
     def EnemyDrop(self):
-        print(f"{J.name} has gained {self.drop} dollars!")
         return self.drop
 
-J = Player("MCHammer", 100, 10, 0)
-enemy = Enemy("Goblin", 50, 10, 20)
+Standing = r"""
+                                            O                                 <O> /
+                                           /|\                                /|\/
+                                           / \                                / X
+"""
+Standingclose = r"""
+                                                    O                   <O> /
+                                                   /|\                  /|\/
+                                                   / \                  / X
+"""
+Standingclose2 = r"""
+                                                           O    <O> /
+                                                          /|\   /|\/
+                                                          / \   / X
+"""
+PreGstrike = r"""
+                                                           O  <-<O>.--
+                                                          /|\   /|'
+                                                          / \   / \
+"""
+Gstrike = r"""
+                                                           O<---<O>.-
+                                                          /|\  --|'
+                                                          / \   / \
+"""
+Ppunch = r"""
+                                                           O    <O> /
+                                                          /|--- /|\/
+                                                          / \   / X
+"""
+Pkick = r"""
+                                                          O __  <O> /
+                                                          |\___ /|\/
+                                                           |    / X
+"""
+PPshieldGstrike = r"""
+                                             
+                                                        O  \   <-<O>.--
+                                                       /|\[|     /|'
+                                                       / \ /     / \
+                                           
+"""
+SelectionScreen = r"""
+                                                          = Attack = 
+                                                 = Potion =          = Gadget = 
+                                                           = Flee =
+"""
 
 PlayerGuard = False
 PlayerAttack = False
 EnemyGuard = False
 
+start = input("Would you like to begin? ").lower()
+
+if start == "yes":
+    J = Player("MCHammer", 100, 10, 0)
+    enemy = Enemy("Goblin", 50, 10, 20)
+    print(f'You have encountered {enemy.name}')
+    print(Standing)
+
 while J.HP > 0 and enemy.HP > 0:
+    print(SelectionScreen)
     control = input("Move? (punch/guard): ").lower()
 
     # Player's turn
     if control in ["punch", "p", "1"]:
+        print(Ppunch)
         J.PlayerPunch(enemy)
         PlayerGuard = False
-    elif control in ["guard", "g", "2"]:
-        J.PGuard()
-        PlayerGuard = True
     else:
         print("Invalid move! Please enter punch or guard.")
 
@@ -70,16 +121,8 @@ while J.HP > 0 and enemy.HP > 0:
         if PlayerGuard:
             print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
         else:
+            print(Gstrike)
             enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
-
-    elif EnemySelect == 2:  # Enemy chooses to guard
-        enemy.EGuard()  # Enemy guards
-        print(f"{J.name} could not attack because {enemy.name} is guarding!")
-
-    # If the player is guarding and the enemy attacks, it doesn't work
-    if PlayerGuard and EnemySelect == 1:
-        print(f"{J.name}'s guard blocked the attack!")
-
     if J.HP <= 0:
         break
 
@@ -87,7 +130,7 @@ if J.HP > 0:
     print(f"{J.name} wins the battle!")
     cash_gain = enemy.EnemyDrop()
     J.money += cash_gain
-    print(f"{J.name} now has {J.money} dollars!")
+    print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
 else:
     print(f"{enemy.name} wins the battle!")
 
