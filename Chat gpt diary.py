@@ -1,7 +1,7 @@
-""" Chat gpt diary
+Chat gpt diary
 12/10
 make a homescreen for my boxing game using pygame. There needs to be an option to  select match,  it needs to show the amount of gold the player has  in the top left corner. It also needs  a spot where one can access a market to add to their inventory. 
- """
+
 import pygame
 import sys
 
