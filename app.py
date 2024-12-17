@@ -20,6 +20,10 @@ class Player:
     def PGuard(self):
         print(f"{self.name} is guarding!")
 
+    def DodgeChance(self):
+        dodge = random.randint(1, 10)
+        return dodge <= 3  
+
 
 class Enemy:
     def __init__(self, name, HP, attack, drop):
@@ -75,8 +79,7 @@ while J.HP > 0 and enemy.HP > 0:
 
     # Enemy's turn (based on AI)
     EnemySelect = enemy.EnemyAI()
-
-
+    
     if EnemySelect == 1:  # Enemy chooses to punch
         if PlayerGuard:
             print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
@@ -93,9 +96,3 @@ if J.HP > 0:
     print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
 else:
     print(f"{enemy.name} wins the battle!")
-
-
-#every x moves (1-5), there is a chance for player to dodge the enemies attack
-
-import random
-number = random.randint(1, 5)
