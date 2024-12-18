@@ -92,4 +92,39 @@ sys.exit()
 
 
 your code says invalid argument
+11/12
+Why does this code not sork? i also included the terminal PS C:\Users\thomas.tokmakov24\Documents\GitHub\oop-adventures-thomas-joshua-and-victor-c> & C:/Python312/python.exe c:/Users/thomas.tokmakov24/Documents/GitHub/oop-adventures-thomas-joshua-and-victor-c/test.py
+c:\Users\thomas.tokmakov24\Documents\GitHub\oop-adventures-thomas-joshua-and-victor-c\test.py:4: SyntaxWarning: invalid escape sequence '\/'
+  Standing = """
+c:\Users\thomas.tokmakov24\Documents\GitHub\oop-adventures-thomas-joshua-and-victor-c\test.py:9: SyntaxWarning: invalid escape sequence '\/'
+  Standingclose = """
+PS C:\Users\thomas.tokmakov24\Documents\GitHub\oop-adventures-thomas-joshua-and-victor-c> 
+import random
+import sys
+# Assign the stickman art to a variable
+Standing = """
+                                            O                                  <O> /
+                                           /|\\                                /|\/
+                                           / \\                                / X
+"""
+Standingclose = """
+                                                    O                       <O> /
+                                                   /|\\                     /|\/
+                                                   / \\                     / X
+"""
+# Print the variableimport random
+import sys
+# Assign the stickman art to a variable
+Standing = """
+                                            O                                  <O> /
+                                           /|\\                                /|\/
+                                           / \\                                / X
+"""
+Standingclose = """
+                                                    O                       <O> /
+                                                   /|\\                     /|\/
+                                                   / \\                     / X
+"""
+# Print the variable
 
+Chat gpt gave me a few possible solutions and they worked like futting a r in front
