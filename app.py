@@ -13,12 +13,21 @@ class Player:
         enemy.HP -= damage  
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         print(Ppunch)
-        if enemy.HP <= 0:
-            print(f"{enemy.name} has been defeated!")
-            print(Gdeath)
+
+    def PlayerKick(self, enemy):
+        damage = (self.attack + 5)
+        kickchance = random.randint(1,10)
+        if kickchance >= 8:
+            enemy.HP -= damage
+            print(Pkick)
+        elif kickchance < 8:
+            enemy.HP -= 0
+            print(f"{self.name} missed the kick!")
+
 
     def PGuard(self):
         print(f"{self.name} is guarding!")
+
 """ 
     def PGadget(self, inventory):
         
@@ -53,12 +62,13 @@ class Enemy:
 
     def EnemyCDrop(self):
         return self.cdrop
-
-""" class Merchant:
+""" 
+class Merchant:
     def __init__(self, money, gadget):
         self.money = money
         self.gadget = gadget
     def PlayerSell(self, money, player, gadget): """
+
 
 
 Standing = r"""
@@ -152,14 +162,20 @@ PdeathG = r"""
 PlayerGuard = False
 PlayerAttack = False
 EnemyGuard = False
+J = Player("MCHammer", 100, 10, 0, [])
 
 start = input("Would you like to begin? ").lower()
+if start in ("yes", "y", "1"):
+    mapselect = input("Where would you like to go? ").lower()
 
-if start == "yes":
-    J = Player("MCHammer", 100, 10, 0, [])
-    enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-    print(f'You have encountered {enemy.name}')
-    print(Standing)
+    if mapselect in ("goblin cave", "1"):
+        enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+        print(f'You have encountered {enemy.name}')
+        print(Standing)
+
+
+    if mapselect in ("graveyard", "2"):
+        enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
 
 while J.HP > 0 and enemy.HP > 0:
     print(SelectionScreen)
@@ -169,12 +185,16 @@ while J.HP > 0 and enemy.HP > 0:
     if control in ["punch", "p", "1"]:
         J.PlayerPunch(enemy)
         PlayerGuard = False
+
+    if control in ["kick", "k", "2"]:
+        J.PlayerKick(enemy)
+        PlayerGuard = False
     else:
         print("Invalid move! Please enter punch or guard.")
 
     if enemy.HP <= 0:
         break
-
+    
     # Enemy's turn (based on AI)
     EnemySelect = enemy.EnemyAI()
 
@@ -185,8 +205,10 @@ while J.HP > 0 and enemy.HP > 0:
             enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
     if J.HP <= 0:
         break
-
+    
 if J.HP > 0:
+    print(f"{enemy.name} has been defeated!")
+    print(Gdeath)
     print(f"{J.name} wins the battle!")
     cash_gain = enemy.EnemyCDrop()
     J.money += cash_gain
