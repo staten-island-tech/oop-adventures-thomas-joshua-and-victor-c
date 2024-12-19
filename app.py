@@ -1,5 +1,4 @@
 import random
-
 class Player:
     def __init__(self, name, HP, attack, money, inventory):
         self.name = name
@@ -15,7 +14,7 @@ class Player:
         print(Ppunch)
 
     def PlayerKick(self, enemy):
-        damage = (self.attack + self.attack + 5)
+        damage = (self.attack + self.attack * 2.5)
         kickchance = random.randint(1,10)
         if kickchance >= 8:
             enemy.HP -= damage
@@ -163,34 +162,55 @@ PdeathG = r"""
 PlayerGuard = False
 PlayerAttack = False
 EnemyGuard = False
-J = Player("MCHammer", 100, 10, 0, [])
+J = Player("MCHammer", 100, 500, 0, [])
 GameRunning = False
+MatchRunning = False
+GoblinCave = False
 
 start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
     GameRunning = True
     mapselect = input("Where would you like to go? ").lower()
+    
     while GameRunning == True:
         if mapselect in ("goblin cave", "1"):
+            GoblinCave = True
             enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
             print(f'You have encountered {enemy.name}')
             print(Standing)
+            if enemy.HP == 0:
+                GoblinCave = False
+            if GoblinCave == False:
+                print("You have cleared the Goblin Cave!")
+                print(f"{J.name} has gained 100 dollars as a reward!")
+                cash_gain = 100
+                J.money += cash_gain
+                print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
+                break
+
+                
 
         if mapselect in ("graveyard", "2"):
             enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
 
         while J.HP > 0 and enemy.HP > 0:
             print(SelectionScreen)
-            control = input("Move? (punch/guard): ").lower()
+            control = input("Your move: ").lower()
     
             # Player's turn
-            if control in ["punch", "p", "1"]:
-                J.PlayerPunch(enemy)
-                PlayerGuard = False
-    
-            if control in ["kick", "k", "2"]:
-                J.PlayerKick(enemy)
-                PlayerGuard = False
+            if control in ["attack", "a", "1"]:
+                attackcontrol = input("What attack would you like to do? ").lower()
+                if attackcontrol in ["punch", "1", "p"]:
+                    J.PlayerPunch(enemy)
+                    PlayerGuard = False
+
+                elif control in ["kick", "k", "2"]:
+                    J.PlayerKick(enemy)
+                    PlayerGuard = False
+
+            elif control in ["leave"]:
+                GameRunning = False
+
             else:
                 print("Invalid move! Please enter punch or guard.")
     
@@ -217,5 +237,6 @@ if start in ("yes", "y", "1"):
             print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
         else:
             print(f"{enemy.name} wins the battle!")
+            GameRunning = False
 
 
