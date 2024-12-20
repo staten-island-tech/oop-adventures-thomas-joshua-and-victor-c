@@ -1,20 +1,21 @@
 import random
 class Player:
-    def __init__(self, name, HP, attack, money, inventory):
+    def __init__(self, name, HP, minattack, maxattack, money, inventory):
         self.name = name
         self.HP = HP
-        self.attack = attack
+        self.minattack = minattack
+        self.maxattack = maxattack
         self.money = money
         self.inventory = inventory
 
     def PlayerPunch(self, enemy):
-        damage = random.randint(1, self.attack) 
+        damage = random.randint(self.minattack, self.maxattack) 
         enemy.HP -= damage  
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         print(Ppunch)
 
     def PlayerKick(self, enemy):
-        damage = (self.attack + self.attack * 2.5)
+        damage = (self.maxattack + self.minattack * 2.5)
         kickchance = random.randint(1,10)
         if kickchance >= 8:
             enemy.HP -= damage
@@ -22,6 +23,7 @@ class Player:
             print(Pkick)
         elif kickchance < 8:
             enemy.HP -= 0
+            print(PMisskick)
             print(f"{self.name} missed the kick!")
 
 
@@ -62,6 +64,12 @@ class Enemy:
 
     def EnemyCDrop(self):
         return self.cdrop
+
+class Weapon:
+    def __init__(self, name, minattackboost, maxattackboost):
+        self.name = name
+        self.minattackboost = minattackboost
+        self.maxattackboost = maxattackboost
 """ 
 class Merchant:
     def __init__(self, money, gadget):
@@ -157,18 +165,46 @@ PdeathG = r"""
                                                             |
                                                 ‗/‾‾|o     / \
 """
+PMisskick = r"""
+                                                          O __  <O> /
+                                                          |\___--|\/
+                                                           |    / X
 
 
-PlayerGuard = False
-PlayerAttack = False
-EnemyGuard = False
-J = Player("MCHammer", 100, 500, 0, [])
+                                                        O___/‾‾\<O> /
+                                                       /|   |    |\/
+                                                                / X      
+       
+                                                      .   _    \<O> /
+                                                     O⊥__/       |\/
+                                                                / X
+
+
+                                                               __<O> /
+                                                                  |\/
+                                                    ‗‗O___/\     / X
+
+
+                                                          O     <O> /
+                                                         /\_    /|\/
+                                                       _」‾‾|   / X
+
+
+"""
+
+
+Sword = Weapon("Goblin Spear", 50, 50)
+J = Player("MCHammer", 100, 250, 10, 0, [])
+J.minattack = Sword.minattackboost + J.minattack
+J.maxattack = Sword.maxattackboost + J.maxattack
 GameRunning = False
 MatchRunning = False
 GoblinCave = False
 
+
 start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
+    J.name = input("What would you like your name to be?")
     GameRunning = True
     mapselect = input("Where would you like to go? ").lower()
     
@@ -197,19 +233,17 @@ if start in ("yes", "y", "1"):
             print(SelectionScreen)
             control = input("Your move: ").lower()
     
-            # Player's turn
             if control in ["attack", "a", "1"]:
+
                 attackcontrol = input("What attack would you like to do? ").lower()
                 if attackcontrol in ["punch", "1", "p"]:
                     J.PlayerPunch(enemy)
-                    PlayerGuard = False
 
                 elif control in ["kick", "k", "2"]:
                     J.PlayerKick(enemy)
-                    PlayerGuard = False
 
-            elif control in ["leave"]:
-                GameRunning = False
+            elif control == "flee":
+                break
 
             else:
                 print("Invalid move! Please enter punch or guard.")
@@ -221,10 +255,8 @@ if start in ("yes", "y", "1"):
             EnemySelect = enemy.EnemyAI()
     
             if EnemySelect == 1:  # Enemy chooses to punch
-                if PlayerGuard:
-                    print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
-                else:
-                    enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
+                enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
+
             if J.HP <= 0:
                 break
             
