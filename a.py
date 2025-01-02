@@ -18,9 +18,8 @@ class Player:
         print(f"{self.name} is guarding!")
 
     def DodgeChance(self):
-        # 30% chance to dodge
         dodge = random.randint(1, 10)
-        return dodge <= 3  # True if dodged
+        return dodge <= 3  
 
 
 class Enemy:
@@ -81,7 +80,7 @@ while J.HP > 0 and enemy.HP > 0:
     # Enemy's turn (based on AI)
     EnemySelect = enemy.EnemyAI()
 
-if EnemySelect == 1:  # Enemy chooses to punch
+if EnemySelect == 1: 
     if PlayerGuard:
         print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
     else:
