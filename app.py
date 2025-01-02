@@ -1,15 +1,14 @@
 import random
 class Player:
-    def __init__(self, name, HP, minattack, maxattack, money, inventory):
+    def __init__(self, name, HP, attack, money, inventory):
         self.name = name
         self.HP = HP
-        self.minattack = minattack
-        self.maxattack = maxattack
+        self.attack = attack
         self.money = money
         self.inventory = inventory
 
     def PlayerPunch(self, enemy):
-        damage = random.randint(self.minattack, self.maxattack) 
+        damage = random.randint(self.attack, self.attack - 30) 
         enemy.HP -= damage  
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         print(Ppunch)
@@ -29,13 +28,6 @@ class Player:
 
     def PGuard(self):
         print(f"{self.name} is guarding!")
-
-""" 
-    def PGadget(self, inventory):
-        
-    def PFlee(self):
-        
-    def PPotion(self, inventory): """
         
 
 class Enemy:
@@ -65,11 +57,11 @@ class Enemy:
     def EnemyCDrop(self):
         return self.cdrop
 
-class Weapon:
+""" class Weapon:
     def __init__(self, name, minattackboost, maxattackboost):
         self.name = name
         self.minattackboost = minattackboost
-        self.maxattackboost = maxattackboost
+        self.maxattackboost = maxattackboost """
 """ 
 class Merchant:
     def __init__(self, money, gadget):
@@ -193,10 +185,7 @@ PMisskick = r"""
 """
 
 
-Sword = Weapon("Goblin Spear", 50, 50)
-J = Player("MCHammer", 100, 250, 10, 0, [])
-J.minattack = Sword.minattackboost + J.minattack
-J.maxattack = Sword.maxattackboost + J.maxattack
+J = Player("MCHammer", 100, 50, 0, [])
 GameRunning = False
 MatchRunning = False
 GoblinCave = False
@@ -204,71 +193,61 @@ GoblinCave = False
 
 start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
-    J.name = input("What would you like your name to be?")
-    GameRunning = True
+    J.name = input("What would you like your name to be? ")
     mapselect = input("Where would you like to go? ").lower()
     
-    while GameRunning == True:
-        if mapselect in ("goblin cave", "1"):
-            GoblinCave = True
-            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-            print(f'You have encountered {enemy.name}')
-            print(Standing)
-            if enemy.HP == 0:
-                GoblinCave = False
-            if GoblinCave == False:
-                print("You have cleared the Goblin Cave!")
-                print(f"{J.name} has gained 100 dollars as a reward!")
-                cash_gain = 100
-                J.money += cash_gain
-                print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
-                break
-
-                
-
-        if mapselect in ("graveyard", "2"):
-            enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
-
-        while J.HP > 0 and enemy.HP > 0:
-            print(SelectionScreen)
-            control = input("Your move: ").lower()
-    
-            if control in ["attack", "a", "1"]:
-
-                attackcontrol = input("What attack would you like to do? ").lower()
-                if attackcontrol in ["punch", "1", "p"]:
-                    J.PlayerPunch(enemy)
-
-                elif control in ["kick", "k", "2"]:
-                    J.PlayerKick(enemy)
-
-            elif control == "flee":
-                break
-
-            else:
-                print("Invalid move! Please enter punch or guard.")
-    
-            if enemy.HP <= 0:
-                break
-            
-            # Enemy's turn (based on AI)
-            EnemySelect = enemy.EnemyAI()
-    
-            if EnemySelect == 1:  # Enemy chooses to punch
-                enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
-
-            if J.HP <= 0:
-                break
-            
-        if J.HP > 0:
-            print(f"{enemy.name} has been defeated!")
-            print(Gdeath)
-            print(f"{J.name} wins the battle!")
-            cash_gain = enemy.EnemyCDrop()
+    if mapselect in ("goblin cave", "1"):
+        GoblinCave = True
+        enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+        print(f'You have encountered {enemy.name}')
+        print(Standing)
+        if enemy.HP == 0:
+            GoblinCave = False
+        if GoblinCave == False:
+            print("You have cleared the Goblin Cave!")
+            print(f"{J.name} has gained 100 dollars as a reward!")
+            cash_gain = 100
             J.money += cash_gain
             print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
+
+    if mapselect in ("graveyard", "2"):
+        enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"]) 
+    while J.HP > 0 and enemy.HP > 0:
+        print(SelectionScreen)
+        control = input("Your move: ").lower()
+
+        if control in ["punch", "1", "p"]:
+                J.PlayerPunch(enemy)    
+
+        elif control in ["kick", "k", "2"]:
+                J.PlayerKick(enemy) 
+
+        elif control == "flee":
+            break   
+        
         else:
-            print(f"{enemy.name} wins the battle!")
-            GameRunning = False
+            print("Invalid move! Please enter punch or guard.")
+
+        if enemy.HP <= 0:
+            break
+        
+       
+        EnemySelect = enemy.EnemyAI()
+
+        if EnemySelect == 1:  
+            enemy.EnemyPunch(J)    
+        if J.HP <= 0:
+            break
+        
+    if J.HP > 0:
+        print(f"{enemy.name} has been defeated!")
+        print(Gdeath)
+        print(f"{J.name} wins the battle!")
+        cash_gain = enemy.EnemyCDrop()
+        J.money += cash_gain
+        print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
+    else:
+        print(f"{enemy.name} wins the battle!")
+        GameRunning = False
 
 
