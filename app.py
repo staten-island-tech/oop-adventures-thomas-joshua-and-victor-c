@@ -8,13 +8,13 @@ class Player:
         self.inventory = inventory
 
     def PlayerPunch(self, enemy):
-        damage = random.randint(self.attack, self.attack - 30) 
+        damage = (self.attack + self.attack - 30) 
         enemy.HP -= damage  
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         print(Ppunch)
 
     def PlayerKick(self, enemy):
-        damage = (self.maxattack + self.minattack * 2.5)
+        damage = (self.attack * 2.5)
         kickchance = random.randint(1,10)
         if kickchance >= 8:
             enemy.HP -= damage
@@ -185,7 +185,7 @@ PMisskick = r"""
 """
 
 
-J = Player("MCHammer", 100, 50, 0, [])
+J = Player("MCHammer", 100, 20, 0, [])
 GameRunning = False
 MatchRunning = False
 GoblinCave = False
@@ -212,10 +212,10 @@ if start in ("yes", "y", "1"):
 
     if mapselect in ("graveyard", "2"):
         enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"]) 
+
     while J.HP > 0 and enemy.HP > 0:
         print(SelectionScreen)
         control = input("Your move: ").lower()
-
         if control in ["punch", "1", "p"]:
                 J.PlayerPunch(enemy)    
 
@@ -229,7 +229,7 @@ if start in ("yes", "y", "1"):
             print("Invalid move! Please enter punch or guard.")
 
         if enemy.HP <= 0:
-            break
+            continue
         
        
         EnemySelect = enemy.EnemyAI()
