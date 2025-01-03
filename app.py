@@ -1,76 +1,3 @@
-import random
-class Player:
-    def __init__(self, name, HP, attack, money, inventory):
-        self.name = name
-        self.HP = HP
-        self.attack = attack
-        self.money = money
-        self.inventory = inventory
-
-    def PlayerPunch(self, enemy):
-        damage = (self.attack + self.attack - 30) 
-        enemy.HP -= damage  
-        print(f"{self.name} attacks {enemy.name} for {damage} damage!")
-        print(Ppunch)
-
-    def PlayerKick(self, enemy):
-        damage = (self.attack * 2.5)
-        kickchance = random.randint(1,10)
-        if kickchance >= 8:
-            enemy.HP -= damage
-            print(f"{self.name} kicks {enemy.name} for {damage} damage!")
-            print(Pkick)
-        elif kickchance < 8:
-            enemy.HP -= 0
-            print(PMisskick)
-            print(f"{self.name} missed the kick!")
-
-
-    def PGuard(self):
-        print(f"{self.name} is guarding!")
-        
-
-class Enemy:
-    def __init__(self, name, HP, attack, cdrop, itemdrop):
-        self.name = name
-        self.HP = HP
-        self.attack = attack
-        self.cdrop = cdrop
-        self.itemdrop = itemdrop
-
-    def EnemyAI(self):
-        return random.randint(1, 1)
-
-    def EnemyPunch(self, player): 
-        damage = random.randint(1, self.attack)  
-        player.HP -= damage 
-        print(f"{self.name} attacks {player.name} for {damage} damage!")
-        print(PreGstrike)
-        print(Gstrike)
-        if player.HP <= 0:
-            print(f"{player.name} has been defeated!")
-            print(PdeathG)
-            print(HeartD)
-    def EGuard(self):
-        print(f"{self.name} is guarding!")
-
-    def EnemyCDrop(self):
-        return self.cdrop
-
-""" class Weapon:
-    def __init__(self, name, minattackboost, maxattackboost):
-        self.name = name
-        self.minattackboost = minattackboost
-        self.maxattackboost = maxattackboost """
-""" 
-class Merchant:
-    def __init__(self, money, gadget):
-        self.money = money
-        self.gadget = gadget
-    def PlayerSell(self, money, player, gadget): """
-
-
-
 Standing = r"""
                                             O                                 <O> /
                                            /|\                                /|\/
@@ -185,10 +112,118 @@ PMisskick = r"""
 """
 
 
-J = Player("MCHammer", 100, 20, 0, [])
-GameRunning = False
-MatchRunning = False
-GoblinCave = False
+HPDrink = r"""
+                                                           O  <O>    \
+                                                           |==-|/     \ 
+                                                          / \ / /      v
+
+
+                                                        O︿                   <O>
+                                                        |--♁                  _/\
+                                                       / \                  |‾‾ |_                                    
+
+
+                          
+                                           O ⸧>                       <O> /
+                                    .     /|                          /|\/
+                                          / \                         / X
+
+
+"""
+
+
+import random
+class Player:
+    def __init__(self, name, HP, attack, money, inventory):
+        self.name = name
+        self.HP = HP
+        self.attack = attack
+        self.money = money
+        self.inventory = inventory
+
+    def PlayerPunch(self, enemy):
+        damage = (self.attack + self.attack - 30) 
+        enemy.HP -= damage  
+        print(f"{self.name} attacks {enemy.name} for {damage} damage!")
+        print(Ppunch)
+
+    def PlayerKick(self, enemy):
+        damage = (self.attack * 2.5)
+        kickchance = random.randint(1,10)
+        if kickchance >= 8:
+            enemy.HP -= damage
+            print(f"{self.name} kicks {enemy.name} for {damage} damage!")
+            print(Pkick)
+        elif kickchance < 8:
+            enemy.HP -= 0
+            print(PMisskick)
+            print(f"{self.name} missed the kick!")
+
+
+    def PGuard(self):
+        print(f"{self.name} is guarding!")
+        
+
+class Enemy:
+    def __init__(self, name, HP, attack, cdrop, itemdrop):
+        self.name = name
+        self.HP = HP
+        self.attack = attack
+        self.cdrop = cdrop
+        self.itemdrop = itemdrop
+
+    def EnemyAI(self):
+        return random.randint(1, 1)
+
+    def EnemyPunch(self, player): 
+        damage = random.randint(1, self.attack)  
+        player.HP -= damage 
+        print(f"{self.name} attacks {player.name} for {damage} damage!")
+        print(PreGstrike)
+        print(Gstrike)
+        if player.HP <= 0:
+            print(f"{player.name} has been defeated!")
+            print(PdeathG)
+            print(HeartD)
+    def EGuard(self):
+        print(f"{self.name} is guarding!")
+
+    def EnemyCDrop(self):
+        return self.cdrop
+
+class Weapon:
+    def __init__(self, name, attackboost):
+        self.name = name
+        self.attackboost = attackboost
+
+class Dungeon:
+    def __init__(self, name, creward, dreward):
+        self.name = name
+        self.creward = creward
+        self.dreward = dreward
+    def DungeonClear(name, creward, dreward):
+        print(f"Congratulations, you have cleared the {self.name}.")
+        print(f"{J.name} has received {self.creward} dollars, and a {self.dreward}!")
+        J.money += self.creward
+        print(f"{J.name} now has {J.money}")
+
+    def DungeonEnter(name, creward, dreward):
+        print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
+
+
+
+""" 
+class Merchant:
+    def __init__(self, money, gadget):
+        self.money = money
+        self.gadget = gadget
+    def PlayerSell(self, money, player, gadget): """
+
+Weapon = Weapon("Goblin Spear", 20 )
+GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet")
+J = Player("MCHammer", 100, 10, 0, [])
+J.attack = J.attack + Weapon.attackboost
+
 
 
 start = input("Would you like to begin? ").lower()
@@ -197,18 +232,11 @@ if start in ("yes", "y", "1"):
     mapselect = input("Where would you like to go? ").lower()
     
     if mapselect in ("goblin cave", "1"):
-        GoblinCave = True
         enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
         print(f'You have encountered {enemy.name}')
         print(Standing)
-        if enemy.HP == 0:
-            GoblinCave = False
-        if GoblinCave == False:
-            print("You have cleared the Goblin Cave!")
-            print(f"{J.name} has gained 100 dollars as a reward!")
-            cash_gain = 100
-            J.money += cash_gain
-            print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
+        if enemy.hp == 0:
+            GCave.DungeonClear
 
     if mapselect in ("graveyard", "2"):
         enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"]) 
@@ -248,6 +276,5 @@ if start in ("yes", "y", "1"):
         print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
     else:
         print(f"{enemy.name} wins the battle!")
-        GameRunning = False
 
 
