@@ -10,16 +10,27 @@ class Player:
  #for the constant do under map selcet 
     def PotionDrink(self,HP,inventory,maxattack):
         WhichPotion = random.randint(1,4)
-        if WhichPotion = 1:
+        if WhichPotion == 1:
             self.HP +=50
-            print(f"{self.name} attacks {enemy.name} for {damage} damage!"}")
-        elif WhichPotion = 2:
-            self.HP 
+            print(f"{self.name} drunk a bottle of Combat Stim and will now  receive 50 HP ")
+        elif WhichPotion == 2:
+            PlayerOvertime += 2
+            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")
+        elif WhichPotion == 3:
+            PlayerOvertime -= 4
+            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")    
 
-
+PlayerOvertime = 0
     def PlayerPunch(self, enemy):
         damage = random.randint(self.minattack, self.maxattack)
         enemy.HP -= damage  
+        J.HP += PlayerOvertime
+        if PlayerOvertime <= 0:
+            print(f"{self.name} lost {PlayerOvertime} from Poisoning!")
+        elif PlayerOvertime >= 0:
+            print(f"{self.name} gained {PlayerOvertime} from their regeneration potion!")
+        else:
+            print(" ")
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
         print(Ppunch)
 
