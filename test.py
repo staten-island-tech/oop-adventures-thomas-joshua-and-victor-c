@@ -1,14 +1,15 @@
 import random
+PlayerOvertime = 0
 class Player:
-    def __init__(self, name, HP, minattack, maxattack, money, inventory):
+    def __init__(self, name, HP, attack, money, inventory):
         self.name = name
         self.HP = HP
-        self.minattack = minattack
-        self.maxattack = maxattack
+        self.attack = attack
         self.money = money
         self.inventory = inventory
+
  #for the constant do under map selcet 
-    def PotionDrink(self,HP,inventory,maxattack):
+    def PotionDrink(self,HP):#do inventory here
         WhichPotion = random.randint(1,4)
         if WhichPotion == 1:
             self.HP +=50
@@ -18,12 +19,28 @@ class Player:
             print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")
         elif WhichPotion == 3:
             PlayerOvertime -= 4
-            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")    
+            print("You drank a suspicious potion and it turned out to be the Tunnel Asp Vemon. It is in your system and will eventually kill you. ")    
+        elif WhichPotion == 4:
+            damage = damage*0.5
+            
 
-PlayerOvertime = 0
+
     def PlayerPunch(self, enemy):
-        damage = random.randint(self.minattack, self.maxattack)
-        enemy.HP -= damage  
+        damage = (self.attack + self.attack - 30)
+        enemy.HP -= damage 
+        J.HP += PlayerOvertime
+        if PlayerOvertime <= 0:
+            print(f"{self.name} lost {PlayerOvertime} from Poisoning!")
+        elif PlayerOvertime >= 0:
+            print(f"{self.name} gained {PlayerOvertime} from their regeneration potion!")
+        else:
+            print(" ") 
+        print(f"{self.name} attacks {enemy.name} for {damage} damage!")
+        print(Ppunch)
+
+
+    def PlayerKick(self, enemy):
+        damage = (self.attack * 2.5)
         J.HP += PlayerOvertime
         if PlayerOvertime <= 0:
             print(f"{self.name} lost {PlayerOvertime} from Poisoning!")
@@ -31,12 +48,6 @@ PlayerOvertime = 0
             print(f"{self.name} gained {PlayerOvertime} from their regeneration potion!")
         else:
             print(" ")
-        print(f"{self.name} attacks {enemy.name} for {damage} damage!")
-        print(Ppunch)
-
-
-    def PlayerKick(self, enemy):
-        damage = (self.maxattack + self.minattack * 2.5)
         kickchance = random.randint(1,10)
         if kickchance >= 8:
             enemy.HP -= damage
@@ -47,19 +58,11 @@ PlayerOvertime = 0
             print(PMisskick)
             print(f"{self.name} missed the kick!")
 
-    
+
 
 
     def PGuard(self):
         print(f"{self.name} is guarding!")
-
-
-"""
-    def PGadget(self, inventory):
-       
-    def PFlee(self):
-       
-    def PPotion(self, inventory): """
        
 
 
@@ -70,6 +73,7 @@ class Enemy:
         self.attack = attack
         self.cdrop = cdrop
         self.itemdrop = itemdrop
+
 
 
     def EnemyAI(self):
@@ -95,16 +99,45 @@ class Enemy:
 
 
 class Weapon:
-    def __init__(self, name, minattackboost, maxattackboost):
+    def __init__(self, name, attackboost):
         self.name = name
-        self.minattackboost = minattackboost
-        self.maxattackboost = maxattackboost
+        self.attackboost = attackboost
+
+
+class Dungeon:
+    def __init__(self, name, creward, dreward):
+        self.name = name
+        self.creward = creward
+        self.dreward = dreward
+    def DungeonClear(name, creward, dreward):
+        print(f"Congratulations, you have cleared the {self.name}.")
+        print(f"{J.name} has received {self.creward} dollars, and a {self.dreward}!")
+        J.money += self.creward
+        print(f"{J.name} now has {J.money}")
+
+
+    def DungeonEnter(name, creward, dreward):
+        print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
+        enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+
+
+
+
+
+
 """
 class Merchant:
     def __init__(self, money, gadget):
         self.money = money
         self.gadget = gadget
     def PlayerSell(self, money, player, gadget): """
+
+
+Weapon = Weapon("Goblin Spear", 20 )
+GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet")
+J = Player("MCHammer", 100, 10, 0, [])
+J.attack = J.attack + Weapon.attackboost
+
 
 
 
@@ -240,103 +273,70 @@ PMisskick = r"""
 
 
 
-J = Player("MCHammer", 100, 250, 10, 0, [])
-Sword = Weapon("Goblin Spear", 50, 50)
-J.minattack = Sword.minattackboost + J.minattack
-J.maxattack = Sword.maxattackboost + J.maxattack
-GameRunning = False
-MatchRunning = False
-GoblinCave = False
-
-
 
 
 start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
-    J.name = input("What would you like your name to be?")
-    GameRunning = True
+    J.name = input("What would you like your name to be? ")
     mapselect = input("Where would you like to go? ").lower()
    
-    while GameRunning == True:
-        if mapselect in ("goblin cave", "1"):
-            GoblinCave = True
-            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-            print(f'You have encountered {enemy.name}')
-            print(Standing)
-            if enemy.HP == 0:
-                GoblinCave = False
-            if GoblinCave == False:
-                print("You have cleared the Goblin Cave!")
-                print(f"{J.name} has gained 100 dollars as a reward!")
-                cash_gain = 100
-                J.money += cash_gain
-                print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
-                break
+    if mapselect in ("goblin cave", "1"):
+        GCave.DungeonEnter(enemy)
+        if enemy.HP == 0:
+            GCave.DungeonClear
 
 
-               
+    if mapselect in ("graveyard", "2"):
+        enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
 
 
-        if mapselect in ("graveyard", "2"):
-            enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
+    while J.HP > 0 and enemy.HP > 0:
+        print(SelectionScreen)
+        control = input("Your move: ").lower()
+        if control in ["punch", "1", "p"]:
+                J.PlayerPunch(enemy)    
+        elif control in ["potion","pot","2"]:
+
+            potioncontrol = input("Would you like to consume a suspicious potion?").lower()
+            if potioncontrol in ["potion","pot","2"]:
+                J.PotionDrink(J) 
+
+        elif control in ["kick", "k", "3"]:
+                J.PlayerKick(enemy)
 
 
-        while J.HP > 0 and enemy.HP > 0:
-            print(SelectionScreen)
-            control = input("Your move: ").lower()
+        elif control == "flee":
+            break  
+       
 
 
-            if control in ["potion","p","1"]:
-
-                potioncontrol = input("Would you like to consume a suspicious potion?").lower()
-                if potioncontrol in ["potion","p","1"]:
-                    J.PotionDrink(J) 
 
 
-            if control in ["attack", "a", "1"]:
-
-
-                attackcontrol = input("What attack would you like to do? ").lower()
-                if attackcontrol in ["punch", "1", "p"]:
-                    J.PlayerPunch(enemy)
-
-
-                elif control in ["kick", "k", "2"]:
-                    J.PlayerKick(enemy)
-
-
-            elif control == "flee":
-                break
-
-
-            else:
-                print("Invalid move! Please enter punch or guard.")
-   
-            if enemy.HP <= 0:
-                break
-           
-            # Enemy's turn (based on AI)
-            EnemySelect = enemy.EnemyAI()
-   
-            if EnemySelect == 1:  # Enemy chooses to punch
-                enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
-
-
-            if J.HP <= 0:
-                break
-           
-        if J.HP > 0:
-            print(f"{enemy.name} has been defeated!")
-            print(Gdeath)
-            print(f"{J.name} wins the battle!")
-            cash_gain = enemy.EnemyCDrop()
-            J.money += cash_gain
-            print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
         else:
-            print(f"{enemy.name} wins the battle!")
-            GameRunning = False
+            print("Invalid move! Please enter punch or guard.")
+   
+
+        if enemy.HP <= 0:
+            continue
+       
+       
+        EnemySelect = enemy.EnemyAI()
 
 
+        if EnemySelect == 1:  
+            enemy.EnemyPunch(J)    
+        if J.HP <= 0:
+            break
+       
+    if J.HP > 0:
+        print(f"{enemy.name} has been defeated!")
+        print(Gdeath)
+        print(f"{J.name} wins the battle!")
+        cash_gain = enemy.EnemyCDrop()
+        J.money += cash_gain
+        print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
+    else:
+        print(f"{enemy.name} wins the battle!")
 
 
 
