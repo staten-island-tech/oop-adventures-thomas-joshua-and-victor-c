@@ -1,6 +1,5 @@
 import random
 
-
 class Player:
     def __init__(self, name, HP, attack, money):
         self.name = name
@@ -19,9 +18,8 @@ class Player:
         print(f"{self.name} is guarding!")
 
     def DodgeChance(self):
-        # 20% chance to dodge
-        return random.randint(1, 5) == 1  # 1 in 5 chance to dodge
-
+        dodge = random.randint(1, 10)
+        return dodge <= 3
 
 class Enemy:
     def __init__(self, name, HP, attack, drop):
@@ -46,47 +44,53 @@ class Enemy:
     def EnemyDrop(self):
         return self.drop
 
-
 # Initialize player and enemy
 J = Player("MCHammer", 100, 10, 0)
 enemy = Enemy("Goblin", 50, 10, 20)
 
+# Flags for guarding and other states
 PlayerGuard = False
-turns = 0  # Track turns
+EnemyGuard = False
+
+# Track turns
+turns = 0
 
 # Main battle loop
 while J.HP > 0 and enemy.HP > 0:
-    turns += 1  # Increment turn counter
-    print(f"\n--- Turn {turns} ---")
+    # Display the turn number only when a valid input is received
+    if turns == 0 or turns > 0:
+        print(f"\n--- Turn {turns + 1} ---")
+
     control = input("Move? (punch/guard): ").lower()
 
     # Player's turn
     if control in ["punch", "p", "1"]:
         J.PlayerPunch(enemy)
         PlayerGuard = False
+        turns += 1  # Increment turn count after a valid move
     elif control in ["guard", "g", "2"]:
         J.PGuard()
         PlayerGuard = True
+        turns += 1  # Increment turn count after a valid move
     else:
         print("Invalid move! Please enter punch or guard.")
-        turns + 0
-        continue  # Retry input
+        continue  # Retry the input without incrementing the turn
 
     if enemy.HP <= 0:
         break
 
-    # Enemy's turn
+    # Enemy's turn (based on AI)
     EnemySelect = enemy.EnemyAI()
-    if EnemySelect == 1:  # Enemy chooses to punch
+
+    if EnemySelect == 1: 
         if PlayerGuard:
             print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
         else:
-            # Check for dodge chance
-            if J.DodgeChance():
+            if random.randint(1, 5) == 3 and J.DodgeChance():
                 print(f"{J.name} dodged {enemy.name}'s attack!")
             else:
                 enemy.EnemyPunch(J)
-    else:
+    else: 
         enemy.EGuard()
 
     if J.HP <= 0:
