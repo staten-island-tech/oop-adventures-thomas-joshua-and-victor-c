@@ -1,137 +1,3 @@
-Standing = r"""
-                                            O                                 <O> /
-                                           /|\                                /|\/
-                                           / \                                / X
-"""
-Standingclose = r"""
-                                                    O                   <O> /
-                                                   /|\                  /|\/
-                                                   / \                  / X
-"""
-Standingclose2 = r"""
-                                                           O    <O> /
-                                                          /|\   /|\/
-                                                          / \   / X
-"""
-PreGstrike = r"""
-                                                           O  <-<O>.--
-                                                          /|\   /|'
-                                                          / \   / \
-"""
-Gstrike = r"""
-                                                           O<---<O>.-
-                                                          /|\  --|'
-                                                          / \   / \
-"""
-
-Ppunch = r"""         
-                                                           O    <O> /
-                                                          /|--- /|\/
-                                                          / \   / X """
-Pkick = r"""
-                                                          O __  <O> /
-                                                          |\___ /|\/
-                                                           |    / X
-"""
-                   
-PPshieldGstrike = r"""                                  O  \   <-<O>.--
-                                                       /|\[|     /|'
-                                                       / \ /     / \                                    
-"""
-SelectionScreen = r"""
-                                                          = Attack / 1 = 
-                                            = Potion / 2 =              = Gadget / 3 = 
-                                                           = Flee / 4 =
-"""
-Gdeath = r"""
-                                                        \O/    
-                                                         |    <O>__
-                                                        / \      | L
-"""
-
-HeartD = r"""                                                                            ¶¶
-                                                                                    ¶1¶1111111¶      
-                                                             ¶¶111¶               ¶¶¶¶111111111¶¶¶1
-                                                          ¶1¶¶¶¶¶111111¶       ¶¶¶1¶¶¶11111111¶1¶¶
-                                                       ¶¶¶1¶1111111111¶¶1    ¶¶1¶¶¶1111111111111¶¶¶
-                                                       ¶¶1¶¶1111111111111¶¶  ¶¶¶1¶¶¶¶1111111111111¶
-                                                       ¶¶_¶1111111111111111¶¶ ¶¶¶¶¶¶11¶111111111111¶
-                                                       11_¶11111111111111111¶¶   ¶¶¶¶  ¶111111111111¶¶
-                                                       ¶¶¶¶1111111111111111¶¶¶¶  1¶¶  11111111111111¶¶
-                                                       ¶¶¶¶11111111111¶¶¶¶¶¶¶  1¶1¶¶11111111111111¶1
-                                                       ¶¶1¶1111111111111¶¶¶¶¶¶¶¶¶¶¶¶¶1111111111111¶¶
-                                                       ¶¶11111111111111111111111¶¶  ¶¶¶¶¶¶1111111111¶¶¶
-                                                        1¶111111111111111111¶¶¶¶¶¶  ¶¶¶¶11111111111¶1
-                                                         ¶¶11111111111111111¶¶¶  ¶¶¶1111111111111¶1
-                                                          ¶¶¶111111111111¶1¶¶¶  1¶¶111¶1111111¶11¶1
-                                                           1¶¶¶11111111111¶¶¶¶111¶¶¶111111111¶11¶¶¶
-                                                            ¶¶¶¶1111111111111¶¶¶¶1¶¶¶¶¶¶¶¶11¶11¶¶
-                                                             ¶¶¶¶¶11111111111¶111¶  ¶¶¶111¶1¶¶¶
-                                                              ¶¶¶¶¶¶111111111111¶  ¶¶¶111¶¶¶1
-                                                                1¶¶¶¶¶11111111¶¶  ¶¶¶¶111¶¶
-                                                                 ¶¶¶¶¶¶¶1111111  ¶¶¶11¶¶1
-                                                                   1¶¶¶¶¶¶1111¶¶¶1¶¶¶¶
-                                                                      ¶¶¶¶¶1¶¶¶¶¶1¶
-                                                                         ¶1¶¶¶1¶¶¶
-                                                                           11¶
-
-
-
-"""
-PdeathG = r"""
-                                                        _________
-                                                          \<O>/  
-                                                            |
-                                                ‗/‾‾|o     / \
-"""
-PMisskick = r"""
-                                                          O __  <O> /
-                                                          |\___--|\/
-                                                           |    / X
-
-
-                                                        O___/‾‾\<O> /
-                                                       /|   |    |\/
-                                                                / X      
-       
-                                                      .   _    \<O> /
-                                                     O⊥__/       |\/
-                                                                / X
-
-
-                                                               __<O> /
-                                                                  |\/
-                                                    ‗‗O___/\     / X
-
-
-                                                          O     <O> /
-                                                         /\_    /|\/
-                                                       _」‾‾|   / X
-
-
-"""
-
-
-HPDrink = r"""
-                                                           O  <O>    \
-                                                           |==-|/     \ 
-                                                          / \ / /      v
-
-
-                                                        O︿                   <O>
-                                                        |--♁                  _/\
-                                                       / \                  |‾‾ |_                                    
-
-
-                          
-                                           O ⸧>                       <O> /
-                                    .     /|                          /|\/
-                                          / \                         / X
-
-
-"""
-
-
 import random
 class Player:
     def __init__(self, name, HP, attack, money, inventory):
@@ -158,6 +24,24 @@ class Player:
             enemy.HP -= 0
             print(PMisskick)
             print(f"{self.name} missed the kick!")
+
+    def PotionDrink(self,HP):
+        WhichPotion = random.randint(1,4)
+        if WhichPotion == 1:
+            self.HP +=50
+            print(f"{self.name} drunk a bottle of Combat Stim and will now  receive 50 HP ")
+
+        elif WhichPotion == 2:
+            PlayerOvertime += 2
+            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")
+
+        elif WhichPotion == 3:
+            PlayerOvertime -= 4
+            print("You drank a suspicious potion and it turned out to be the Tunnel Asp Vemon. It is in your system and will eventually kill you. ")    
+
+        elif WhichPotion == 4:
+            damage = damage*0.5
+
 
 
     def PGuard(self):
@@ -197,32 +81,29 @@ class Weapon:
         self.attackboost = attackboost
 
 class Dungeon:
-    def __init__(self, name, creward, dreward):
+    def __init__(self, name, creward, dreward, eamount):
         self.name = name
         self.creward = creward
         self.dreward = dreward
+        self.eamount = eamount
     def DungeonClear(name, creward, dreward):
         print(f"Congratulations, you have cleared the {self.name}.")
         print(f"{J.name} has received {self.creward} dollars, and a {self.dreward}!")
         J.money += self.creward
         print(f"{J.name} now has {J.money}")
 
-    def DungeonEnter(name, creward, dreward):
+    def DungeonEnter(name, creward, dreward, enemy):
         print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
-
-
-
-""" 
-class Merchant:
-    def __init__(self, money, gadget):
-        self.money = money
-        self.gadget = gadget
-    def PlayerSell(self, money, player, gadget): """
+        dstart = input("Would you like to begin the dungeon?").lower()
+        if dstart == "yes":
+            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
 
 Weapon = Weapon("Goblin Spear", 20 )
-GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet")
+GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet", 5)
 J = Player("MCHammer", 100, 10, 0, [])
 J.attack = J.attack + Weapon.attackboost
+
+
 
 
 
@@ -230,13 +111,144 @@ start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
     J.name = input("What would you like your name to be? ")
     mapselect = input("Where would you like to go? ").lower()
+    Standing = r"""
+                                            O                                 <O> /
+                                           /|\                                /|\/
+                                           / \                                / X
+    """
+    Standingclose = r"""
+                                                        O                   <O> /
+                                                       /|\                  /|\/
+                                                       / \                  / X
+    """
+    Standingclose2 = r"""
+                                                               O    <O> /
+                                                              /|\   /|\/
+                                                              / \   / X
+    """
+    PreGstrike = r"""
+                                                               O  <-<O>.--
+                                                              /|\   /|'
+                                                              / \   / \
+    """
+    Gstrike = r"""
+                                                               O<---<O>.-
+                                                              /|\  --|'
+                                                              / \   / \
+    """
+    
+    Ppunch = r"""         
+                                                               O    <O> /
+                                                              /|--- /|\/
+                                                              / \   / X """
+    Pkick = r"""
+                                                              O __  <O> /
+                                                              |\___ /|\/
+                                                               |    / X
+    """
+                       
+    PPshieldGstrike = r"""                                  O  \   <-<O>.--
+                                                           /|\[|     /|'
+                                                           / \ /     / \                                    
+    """
+    SelectionScreen = rf"""
+                                                              = Attack / 1 =                        {J.name}         
+                                                = Potion / 2 =              = Gadget / 3 =          HP: {J.HP}   
+                                                               = Flee / 4 =                       [------------]
+    """
+    Gdeath = r"""
+                                                            \O/    
+                                                             |    <O>__
+                                                            / \      | L
+    """
+    
+    HeartD = r"""                                                                            ¶¶
+                                                                                        ¶1¶1111111¶      
+                                                                 ¶¶111¶               ¶¶¶¶111111111¶¶¶1
+                                                              ¶1¶¶¶¶¶111111¶       ¶¶¶1¶¶¶11111111¶1¶¶
+                                                           ¶¶¶1¶1111111111¶¶1    ¶¶1¶¶¶1111111111111¶¶¶
+                                                           ¶¶1¶¶1111111111111¶¶  ¶¶¶1¶¶¶¶1111111111111¶
+                                                           ¶¶_¶1111111111111111¶¶ ¶¶¶¶¶¶11¶111111111111¶
+                                                           11_¶11111111111111111¶¶   ¶¶¶¶  ¶111111111111¶¶
+                                                           ¶¶¶¶1111111111111111¶¶¶¶  1¶¶  11111111111111¶¶
+                                                           ¶¶¶¶11111111111¶¶¶¶¶¶¶  1¶1¶¶11111111111111¶1
+                                                           ¶¶1¶1111111111111¶¶¶¶¶¶¶¶¶¶¶¶¶1111111111111¶¶
+                                                           ¶¶11111111111111111111111¶¶  ¶¶¶¶¶¶1111111111¶¶¶
+                                                            1¶111111111111111111¶¶¶¶¶¶  ¶¶¶¶11111111111¶1
+                                                             ¶¶11111111111111111¶¶¶  ¶¶¶1111111111111¶1
+                                                              ¶¶¶111111111111¶1¶¶¶  1¶¶111¶1111111¶11¶1
+                                                               1¶¶¶11111111111¶¶¶¶111¶¶¶111111111¶11¶¶¶
+                                                                ¶¶¶¶1111111111111¶¶¶¶1¶¶¶¶¶¶¶¶11¶11¶¶
+                                                                 ¶¶¶¶¶11111111111¶111¶  ¶¶¶111¶1¶¶¶
+                                                                  ¶¶¶¶¶¶111111111111¶  ¶¶¶111¶¶¶1
+                                                                    1¶¶¶¶¶11111111¶¶  ¶¶¶¶111¶¶
+                                                                     ¶¶¶¶¶¶¶1111111  ¶¶¶11¶¶1
+                                                                       1¶¶¶¶¶¶1111¶¶¶1¶¶¶¶
+                                                                          ¶¶¶¶¶1¶¶¶¶¶1¶
+                                                                             ¶1¶¶¶1¶¶¶
+                                                                               11¶
+    
+    
+    
+    """
+    PdeathG = r"""
+                                                            _________
+                                                              \<O>/  
+                                                                |
+                                                    ‗/‾‾|o     / \
+    """
+    PMisskick = r"""
+                                                              O __  <O> /
+                                                              |\___--|\/
+                                                               |    / X
+    
+    
+                                                            O___/‾‾\<O> /
+                                                           /|   |    |\/
+                                                                    / X      
+           
+                                                          .   _    \<O> /
+                                                         O⊥__/       |\/
+                                                                    / X
+    
+    
+                                                                   __<O> /
+                                                                      |\/
+                                                        ‗‗O___/\     / X
+    
+    
+                                                              O     <O> /
+                                                             /\_    /|\/
+                                                           _」‾‾|   / X
+    
+    
+    """
+    
+    
+    HPDrink = r"""
+                                                               O  <O>    \
+                                                               |==-|/     \ 
+                                                              / \ / /      v
+    
+    
+                                                            O︿                   <O>
+                                                            |--♁                  _/\
+                                                           / \                  |‾‾ |_                                    
+    
+    
+                              
+                                               O ⸧>                       <O> /
+                                        .     /|                          /|\/
+                                              / \                         / X
+    
+    
+    """
     
     if mapselect in ("goblin cave", "1"):
-        enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-        print(f'You have encountered {enemy.name}')
-        print(Standing)
-        if enemy.hp == 0:
-            GCave.DungeonClear
+        GCave.DungeonEnter(J, dreward, enemy)
+        for i in range(GCave.eamount):
+            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+        GCave.DungeonClear(J)
 
     if mapselect in ("graveyard", "2"):
         enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"]) 
@@ -247,8 +259,14 @@ if start in ("yes", "y", "1"):
         if control in ["punch", "1", "p"]:
                 J.PlayerPunch(enemy)    
 
-        elif control in ["kick", "k", "2"]:
-                J.PlayerKick(enemy) 
+        elif control in ["potion","pot","2"]:
+            potioncontrol = input("Would you like to consume a suspicious potion?").lower()
+            if potioncontrol in ["potion","pot","2"]:
+                J.PotionDrink(J)
+
+
+        elif control in ["kick", "k", "3"]:
+                J.PlayerKick(enemy)
 
         elif control == "flee":
             break   
