@@ -44,24 +44,19 @@ class Enemy:
     def EnemyDrop(self):
         return self.drop
 
-# Initialize player and enemy
 J = Player("MCHammer", 100, 10, 0)
 enemy = Enemy("Goblin", 50, 10, 20)
 
-# Flags for guarding and other states
 PlayerGuard = False
 EnemyGuard = False
 
-# Track turns and consecutive guards
 turns = 0
-consecutive_guards = 0  # Track consecutive guards
+consecutive_guards = 0 
 
-# Main battle loop
 while J.HP > 0 and enemy.HP > 0:
     print(f"\n--- Turn {turns + 1} ---")
     control = input("Move? (punch/guard): ").lower()
 
-    # Player's turn
     if control in ["punch", "p", "1"]:
         J.PlayerPunch(enemy)
         PlayerGuard = False
@@ -76,7 +71,7 @@ while J.HP > 0 and enemy.HP > 0:
         if consecutive_guards >= 3:
             damage_player = random.randint(5, 10)  
             J.HP -= damage_player
-            print(f"{J.name} has guarded for too long and loses {damage_player} HP!")
+            print(f"{J.name} guarded for too long and loses {damage_player} HP!")
             consecutive_guards = 0  # Reset guard counter
     else:
         print("Invalid move! Please enter punch or guard.")
@@ -111,4 +106,14 @@ if J.HP > 0:
 else:
     print(f"{enemy.name} wins the battle!")
 
-print()
+""" print()
+
+def PlayerPunch(self, enemy):
+    damage = random.randint(1, self.attack)
+    enemy.HP -= damage
+    print(f"{self.name} attacks {enemy.name} for {damage} damage!")
+    print()  # Add a blank line after the attack message
+    if enemy.HP <= 0:
+        print(f"{enemy.name} has been defeated!")
+        print()  # Add a blank line after the defeat message
+ """
