@@ -1,13 +1,13 @@
 import random
-PlayerOvertime = 0
+
 class Player:
-    def __init__(self, name, HP, attack, money, inventory):
+    def __init__(self, name, HP, attack, money, inventory,playerovertime):
         self.name = name
         self.HP = HP
         self.attack = attack
         self.money = money
         self.inventory = inventory
-
+        self.playerovertime = playerovertime
  #for the constant do under map selcet 
     def PotionDrink(self,HP):#do inventory here
         WhichPotion = random.randint(1,4)
@@ -15,24 +15,25 @@ class Player:
             self.HP +=50
             print(f"{self.name} drunk a bottle of Combat Stim and will now  receive 50 HP ")
         elif WhichPotion == 2:
-            PlayerOvertime += 2
-            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flowly through you and you will now recieve health slowly for the duration of the battle.")
+            self.playerovertime += 2
+            print("You drank a suspicious potion and it turned out to be the Ichor of the Gods.It flows through you and you will now recieve health slowly for the duration of the battle.")
         elif WhichPotion == 3:
-            PlayerOvertime -= 4
-            print("You drank a suspicious potion and it turned out to be the Tunnel Asp Vemon. It is in your system and will eventually kill you. ")    
+            self.playerovertime -= 4
+            print("You drank a suspicious potion and it turned out to be the Tunnel Asp Venom. It is in your system and will eventually kill you. ")    
         elif WhichPotion == 4:
             damage = damage*0.5
+            print("You drank a weakness potion and your attack is halved.This effect lasts for four turns. ")
             
 
 
     def PlayerPunch(self, enemy):
         damage = (self.attack + self.attack - 30)
         enemy.HP -= damage 
-        J.HP += PlayerOvertime
-        if PlayerOvertime <= 0:
-            print(f"{self.name} lost {PlayerOvertime} from Poisoning!")
-        elif PlayerOvertime >= 0:
-            print(f"{self.name} gained {PlayerOvertime} from their regeneration potion!")
+        J.HP += self.playerovertime
+        if self.playerovertime <= 0:
+            print(f"{self.name} lost {self.playerovertime} from Poisoning!")
+        elif self.playerovertime >= 0:
+            print(f"{self.name} gained {self.playerovertime} from their regeneration potion!")
         else:
             print(" ") 
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
@@ -41,11 +42,11 @@ class Player:
 
     def PlayerKick(self, enemy):
         damage = (self.attack * 2.5)
-        J.HP += PlayerOvertime
-        if PlayerOvertime <= 0:
-            print(f"{self.name} lost {PlayerOvertime} from Poisoning!")
-        elif PlayerOvertime >= 0:
-            print(f"{self.name} gained {PlayerOvertime} from their regeneration potion!")
+        J.HP += self.playerovertime
+        if self.playerovertime <= 0:
+            print(f"{self.name} lost {self.playerovertime} from Poisoning!")
+        elif self.playerovertime >= 0:
+            print(f"{self.name} gained {self.playerovertime} from their regeneration potion!")
         else:
             print(" ")
         kickchance = random.randint(1,10)
@@ -135,7 +136,7 @@ class Merchant:
 
 Weapon = Weapon("Goblin Spear", 20 )
 GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet")
-J = Player("MCHammer", 100, 10, 0, [])
+J = Player("MCHammer", 100, 10, 0, [], 0)
 J.attack = J.attack + Weapon.attackboost
 
 
@@ -281,7 +282,7 @@ if start in ("yes", "y", "1"):
     mapselect = input("Where would you like to go? ").lower()
    
     if mapselect in ("goblin cave", "1"):
-        GCave.DungeonEnter(enemy)
+        GCave.DungeonEnter(Enemy)
         if enemy.HP == 0:
             GCave.DungeonClear
 
