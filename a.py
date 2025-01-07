@@ -51,7 +51,8 @@ PlayerGuard = False
 EnemyGuard = False
 
 turns = 0
-consecutive_guards = 0 
+player_consecutive_guards = 0
+enemy_consecutive_guards = 0
 
 while J.HP > 0 and enemy.HP > 0:
     print(f"\n--- Turn {turns + 1} ---")
@@ -60,22 +61,22 @@ while J.HP > 0 and enemy.HP > 0:
     if control in ["punch", "p", "1"]:
         J.PlayerPunch(enemy)
         PlayerGuard = False
-        consecutive_guards = 0  
-        turns += 1  
+        player_consecutive_guards = 0
+        turns += 1
     elif control in ["guard", "g", "2"]:
         J.PGuard()
         PlayerGuard = True
-        consecutive_guards += 1 
-        turns += 1 
+        player_consecutive_guards += 1
+        turns += 1
 
-        if consecutive_guards >= 3:
-            damage_player = random.randint(5, 10)  
+        if player_consecutive_guards >= 3:
+            damage_player = random.randint(5, 10)
             J.HP -= damage_player
             print(f"{J.name} guarded for too long and loses {damage_player} HP!")
-            consecutive_guards = 0  # Reset guard counter
+            player_consecutive_guards = 0
     else:
         print("Invalid move! Please enter punch or guard.")
-        continue  # Retry the input without incrementing the turn
+        continue
 
     if enemy.HP <= 0:
         break
@@ -84,6 +85,7 @@ while J.HP > 0 and enemy.HP > 0:
     EnemySelect = enemy.EnemyAI()
 
     if EnemySelect == 1:
+        enemy_consecutive_guards = 0
         if PlayerGuard:
             print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
         else:
@@ -93,6 +95,14 @@ while J.HP > 0 and enemy.HP > 0:
                 enemy.EnemyPunch(J)
     else:
         enemy.EGuard()
+        EnemyGuard = True
+        enemy_consecutive_guards += 1
+
+        if enemy_consecutive_guards >= 3:
+            damage_enemy = random.randint(5, 10)
+            enemy.HP -= damage_enemy
+            print(f"{enemy.name} guarded for too long and loses {damage_enemy} HP!")
+            enemy_consecutive_guards = 0
 
     if J.HP <= 0:
         break
@@ -105,15 +115,3 @@ if J.HP > 0:
     print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
 else:
     print(f"{enemy.name} wins the battle!")
-
-""" print()
-
-def PlayerPunch(self, enemy):
-    damage = random.randint(1, self.attack)
-    enemy.HP -= damage
-    print(f"{self.name} attacks {enemy.name} for {damage} damage!")
-    print()  # Add a blank line after the attack message
-    if enemy.HP <= 0:
-        print(f"{enemy.name} has been defeated!")
-        print()  # Add a blank line after the defeat message
- """

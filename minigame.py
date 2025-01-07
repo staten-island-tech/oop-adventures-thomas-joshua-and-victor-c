@@ -1,25 +1,8 @@
-""" import time
-import random
-
-print("Get ready...")
-time.sleep(random.uniform(1, 2))
-
-key = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-print(f"Press {key} now!")
-start_time = time.time()
-input_char = input(">>> ").strip().upper()
-reaction_time = time.time() - start_time
-
-if input_char == key:
-    print(f"Good! Your reaction time: {reaction_time:.2f} seconds")
-else:
-    print("Wrong key!") """
-
 import time
 import random
 import threading
 
-#creating a timout event
+#creating a timeout event
 def timeout():
     global timed_out
     timed_out = True
@@ -50,6 +33,7 @@ input_character = input(">>> ").strip().upper()
 timer.cancel()
 #cancels time
 
+#calculates reaction time
 if not timed_out:
     reaction_time = time.time() - start_time
     if input_character == key:
