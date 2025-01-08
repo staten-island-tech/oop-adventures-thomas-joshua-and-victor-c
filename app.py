@@ -107,6 +107,60 @@ PMisskick = r"""
 """
 
 
+RegenDrink = r"""
+                                                           O  <O>    \
+                                                           |==-|/     \ 
+                                                          / \ / /      v
+
+
+                                                        O︿                   <O>
+                                                        |--♁                  _/\
+                                                       / \                  |‾‾ |_                                    
+
+
+                          
+                                           O ⸧>   +                    <O> /
+                                    .  +  /|                           /|\/
+                                          / \     +                    / X
+
+
+"""
+WeaknessDrink = r"""
+                                                           O  <O>    \
+                                                           |==-|/     \ 
+                                                          / \ / /      v
+
+
+                                                        O︿                   <O>
+                                                        |--♁                  _/\
+                                                       / \                  |‾‾ |_                                    
+
+
+                          
+                                           O ⸧>  ⇓                     <O> /
+                                .      ⇓  /|                           /|\/
+                                          / \   ⇓                      / X
+
+
+"""
+PoisonDrink = r"""
+                                                           O  <O>    \
+                                                           |==-|/     \ 
+                                                          / \ / /      v
+
+
+                                                        O︿                   <O>
+                                                        |--♁                  _/\
+                                                       / \                  |‾‾ |_                                    
+
+
+                          
+                                           O ⸧>  ☠                    <O> /
+                                   .  ☠   /|                          /|\/
+                                          / \ ☠                       / X
+
+
+"""
 HPDrink = r"""
                                                            O  <O>    \
                                                            |==-|/     \ 
@@ -119,9 +173,9 @@ HPDrink = r"""
 
 
                           
-                                           O ⸧>                       <O> /
-                                    .     /|                          /|\/
-                                          / \                         / X
+                                           O ⸧> ↑                      <O> /
+                                    . ↑   /|                           /|\/
+                                          / \     ↑                    / X
 
 
 """
@@ -177,19 +231,23 @@ class Player:
         WhichPotion = random.randint(1,4)
         if WhichPotion == 1:
             self.HP +=50
+            print(HPDrink)
             print(f"{self.name} drunk a bottle of Combat Stim and will now receive 50 HP ")
 
         elif WhichPotion == 2:
             self.playerovertime += 2
+            print(RegenDrink)
             print("You drank a suspicious potion and it turned out to be the Ichor of the Gods. It flows through you and you will now recieve health slowly for the duration of the battle.")
 
 
         elif WhichPotion == 3:
             self.playerovertime -= 4
+            print(PoisonDrink)
             print("You drank a suspicious potion and it turned out to be the Tunnel Asp Venom. It is in your system and will eventually kill you. ")    
 
         elif WhichPotion == 4:
-            print("You drank a weaknes potion and your attack is halved for four turns.")
+            print(WeaknessDrink)
+            print("You drank a weakness potion and your attack is halved for four turns.")
             self.potionduration += 4
             if self.potionduration > 0:
                 self.attack = self.attack*0.5
@@ -244,11 +302,13 @@ class Dungeon:
         J.money += self.creward
         print(f"{J.name} now has {J.money}")
 
-    def DungeonEnter(name, creward, dreward, enemy):
+    def DungeonEnter(self, player):
         print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
         dstart = input("Would you like to begin the dungeon?").lower()
-        if dstart == "yes":
-            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+        if dstart in ["yes", "y", "1"]:
+            for i in range(self.eamount):
+                enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
+            self.DungeonClear(J)
 
 Weapon = Weapon("Goblin Spear", 20 )
 GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet", 5)
@@ -261,18 +321,15 @@ if start in ("yes", "y", "1"):
     mapselect = input("Where would you like to go? ").lower()  
     if mapselect in ("goblin cave", "1"):
         GCave.DungeonEnter(J)
-        for i in range(GCave.eamount):
-            enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-        GCave.DungeonClear(J)
 
     if mapselect in ("graveyard", "2"):
         enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"]) 
 
     while J.HP > 0 and enemy.HP > 0:
         SelectionScreen = rf"""
-                   {enemy.name}                             = Attack / 1 =                            {J.name}         
-                  HP: {enemy.HP}              = Potion / 2 =              = Gadget / 3 =             HP: {J.HP}   
-               Attack: {enemy.attack}                        = Flee / 4 =                         Attack: {J.attack}
+               {enemy.name}                           = Attack / 1 =                               {J.name}                     Potion Duration:
+               HP: {enemy.HP}            = Potion / 2 =              = Gadget / 3 =                HP: {J.HP}                  {J.potionduration}
+               Attack: {enemy.attack}                      = Flee / 4 =                            Attack: {J.attack}
         """
         PotionDuration -= 1
         print(SelectionScreen)
@@ -284,23 +341,16 @@ if start in ("yes", "y", "1"):
             potioncontrol = input("Would you like to consume a suspicious potion? ").lower()
             if potioncontrol in ["potion","pot","2", "yes", "y"]:
                 J.PotionDrink(J)
-
-
         elif control in ["kick", "k", "3"]:
                 J.PlayerKick(enemy)
-
         elif control == "flee":
             break   
-        
         else:
             print("Invalid move! Please enter punch or guard.")
-
         if enemy.HP <= 0:
             continue
-        
        
         EnemySelect = enemy.EnemyAI()
-
         if EnemySelect == 1:  
             enemy.EnemyPunch(J)    
         if J.HP <= 0:
