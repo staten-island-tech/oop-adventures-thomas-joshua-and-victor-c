@@ -304,11 +304,11 @@ class Dungeon:
 
     def DungeonEnter(self, player):
         print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
-        dstart = input("Would you like to begin the dungeon?").lower()
+        dstart = input("Would you like to begin the dungeon? ").lower()
         if dstart in ["yes", "y", "1"]:
             for i in range(self.eamount):
                 enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-            self.DungeonClear(J)
+            self.DungeonClear(J, dreward)
 
 Weapon = Weapon("Goblin Spear", 20 )
 GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet", 5)
