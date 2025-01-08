@@ -1,13 +1,14 @@
 import random
-
+PotionDuration = 0
 class Player:
-    def __init__(self, name, HP, attack, money, inventory,playerovertime):
+    def __init__(self, name, HP, attack, money, inventory,playerovertime, potionduration):
         self.name = name
         self.HP = HP
         self.attack = attack
         self.money = money
         self.inventory = inventory
         self.playerovertime = playerovertime
+        self.potionduration = potionduration
  #for the constant do under map selcet 
     def PotionDrink(self,HP):#do inventory here
         WhichPotion = random.randint(1,4)
@@ -21,7 +22,9 @@ class Player:
             self.playerovertime -= 4
             print("You drank a suspicious potion and it turned out to be the Tunnel Asp Venom. It is in your system and will eventually kill you. ")    
         elif WhichPotion == 4:
-            damage = damage*0.5
+            self.potionduration += 4
+            if self.potionduration > 0:
+                self.attack = self.attack*0.5
             print("You drank a weakness potion and your attack is halved.This effect lasts for four turns. ")
             
 
@@ -30,9 +33,9 @@ class Player:
         damage = (self.attack + self.attack - 30)
         enemy.HP -= damage 
         J.HP += self.playerovertime
-        if self.playerovertime <= 0:
+        if self.playerovertime < 0:
             print(f"{self.name} lost {self.playerovertime} from Poisoning!")
-        elif self.playerovertime >= 0:
+        elif self.playerovertime > 0:
             print(f"{self.name} gained {self.playerovertime} from their regeneration potion!")
         else:
             print(" ") 
@@ -43,9 +46,9 @@ class Player:
     def PlayerKick(self, enemy):
         damage = (self.attack * 2.5)
         J.HP += self.playerovertime
-        if self.playerovertime <= 0:
+        if self.playerovertime < 0:
             print(f"{self.name} lost {self.playerovertime} from Poisoning!")
-        elif self.playerovertime >= 0:
+        elif self.playerovertime > 0:
             print(f"{self.name} gained {self.playerovertime} from their regeneration potion!")
         else:
             print(" ")
@@ -64,6 +67,7 @@ class Player:
 
     def PGuard(self):
         print(f"{self.name} is guarding!")
+        self.HP += damage
        
 
 
@@ -95,6 +99,7 @@ class Enemy:
         print(f"{self.name} is guarding!")
 
 
+
     def EnemyCDrop(self):
         return self.cdrop
 
@@ -106,10 +111,11 @@ class Weapon:
 
 
 class Dungeon:
-    def __init__(self, name, creward, dreward):
+    def __init__(self, name, creward, dreward,eamount):
         self.name = name
         self.creward = creward
         self.dreward = dreward
+        self.eamount = eamount
     def DungeonClear(name, creward, dreward):
         print(f"Congratulations, you have cleared the {self.name}.")
         print(f"{J.name} has received {self.creward} dollars, and a {self.dreward}!")
@@ -117,8 +123,10 @@ class Dungeon:
         print(f"{J.name} now has {J.money}")
 
 
-    def DungeonEnter(name, creward, dreward):
+    def DungeonEnter(name, creward, dreward,enemy):
         print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
+        # dstart = input("Would you like to begin the dungeon?").lower()
+        # if dstart == "yes":
         enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
 
 
@@ -136,7 +144,7 @@ class Merchant:
 
 Weapon = Weapon("Goblin Spear", 20 )
 GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet")
-J = Player("MCHammer", 100, 10, 0, [], 0)
+J = Player("MCHammer", 100, 10, 0, [], 0, 0)
 J.attack = J.attack + Weapon.attackboost
 
 
@@ -301,10 +309,11 @@ if start in ("yes", "y", "1"):
             potioncontrol = input("Would you like to consume a suspicious potion?").lower()
             if potioncontrol in ["potion","pot","2"]:
                 J.PotionDrink(J) 
-
+        elif control in ["gaurd","g","5"]:
+                J.PGaurd(J)
         elif control in ["kick", "k", "3"]:
                 J.PlayerKick(enemy)
-
+        
 
         elif control == "flee":
             break  
