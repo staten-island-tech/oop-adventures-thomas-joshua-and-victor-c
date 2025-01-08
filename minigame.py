@@ -20,7 +20,7 @@ key = random.choice(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 print(f"Press {key} now!")
 
 #2 second timer
-timer = threading.Timer(2.0, timeout) 
+timer = threading.Timer(1.5, timeout) 
 timer.start()
 
 #starting a timer

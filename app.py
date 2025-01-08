@@ -1,6 +1,5 @@
 import random
 
-
 class Player:
     def __init__(self, name, HP, attack, money):
         self.name = name
@@ -43,9 +42,9 @@ class Enemy:
         print(f"{self.name} attacks {player.name} for {damage} damage!")
         if player.HP <= 0:
             print(f"{player.name} has been defeated!")
+
     def EGuard(self):
         print(f"{self.name} is guarding!")
-
 
     def EnemyDrop(self):
         return self.drop
@@ -71,7 +70,7 @@ while J.HP > 0 and enemy.HP > 0:
         PlayerGuard = False
     else:
         print("Invalid move! Please enter punch or guard.")
-
+        continue
 
     if enemy.HP <= 0:
         break
@@ -84,7 +83,13 @@ while J.HP > 0 and enemy.HP > 0:
         if PlayerGuard:
             print(f"{J.name}'s guard blocked {enemy.name}'s attack!")
         else:
-            enemy.EnemyPunch(J)  # Enemy punches if player is not guarding
+            if turns % random.randint(3, 5) == 0 and J.DodgeChance():
+                print(f"{J.name} dodged {enemy.name}'s attack!")
+            else:
+                enemy.EnemyPunch(J)
+    else:  
+        enemy.EGuard()
+        enemy.EnemyPunch(J) 
     if J.HP <= 0:
         break
 
