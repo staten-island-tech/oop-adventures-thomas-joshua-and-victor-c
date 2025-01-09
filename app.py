@@ -195,7 +195,7 @@ class Player:
         self.potionduration = potionduration
 
     def PlayerPunch(self, enemy):
-        damage = (self.attack + self.attack - 30) 
+        damage = (self.attack) 
         enemy.HP -= damage  
         J.HP += self.playerovertime
         if self.playerovertime < 0:
@@ -290,6 +290,11 @@ class Weapon:
         self.name = name
         self.attackboost = attackboost
 
+class Armor:
+    def __init__(self, name, hpboost):
+        self.name = name
+        self.hpboost = hpboost
+
 class Dungeon:
     def __init__(self, name, creward, dreward, eamount):
         self.name = name
@@ -308,12 +313,15 @@ class Dungeon:
         if dstart in ["yes", "y", "1"]:
             for i in range(self.eamount):
                 enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
-            self.DungeonClear(J, dreward)
+            self.DungeonClear(J, self.dreward)
 
-Weapon = Weapon("Goblin Spear", 20 )
+Weapon = Weapon("Goblin Spear", 20)
+SArmor = Armor("Starter Chestplate", 100)
+BArmor = Armor("Light Chainmail Plate", 150)
 GCave = Dungeon("Goblin Cave", 100, "Goblin Helmet", 5)
-J = Player("MCHammer", 100, 10, 0, [], 0, 0)
+J = Player("MCHammer", 0, 10, 0, [], 0, 0)
 J.attack = J.attack + Weapon.attackboost
+J.HP = J.HP + SArmor.hpboost
 
 start = input("Would you like to begin? ").lower()
 if start in ("yes", "y", "1"):
@@ -327,9 +335,9 @@ if start in ("yes", "y", "1"):
 
     while J.HP > 0 and enemy.HP > 0:
         SelectionScreen = rf"""
-               {enemy.name}                           = Attack / 1 =                               {J.name}                     Potion Duration:
+               {enemy.name}                            = Attack / 1 =                              {J.name}                     Potion Duration:
                HP: {enemy.HP}            = Potion / 2 =              = Gadget / 3 =                HP: {J.HP}                  {J.potionduration}
-               Attack: {enemy.attack}                      = Flee / 4 =                            Attack: {J.attack}
+               Attack: {enemy.attack}                   = Flee / 4 =                               Attack: {J.attack}
         """
         PotionDuration -= 1
         print(SelectionScreen)
