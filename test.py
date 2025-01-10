@@ -102,7 +102,18 @@ class Enemy:
     def EnemyCDrop(self):
         return self.cdrop
 
-
+class Stage1:
+    def __init__(self, name, HP, attack, cdrop, itemdrop):
+        self.name = name
+        self.HP = HP
+        self.attack = attack
+        self.cdrop = cdrop
+        self.itemdrop = itemdrop
+class Stage2(Stage1):
+    def __init__(self, name, HP, attack, cdrop, itemdrop, defense ):
+        super().__init__(HP, attack, cdrop, itemdrop)
+        self.defense = defense
+        self.name = name
 class Weapon:
     def __init__(self, name, attackboost):
         self.name = name

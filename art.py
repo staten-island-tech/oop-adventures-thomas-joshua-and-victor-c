@@ -1,4 +1,5 @@
-def art(
+def art():
+  (
 
     Standing = r"""
                                                 O                                 <O> /

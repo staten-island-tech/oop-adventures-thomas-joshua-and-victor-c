@@ -128,3 +128,7 @@ Standingclose = """
 # Print the variable
 
 Chat gpt gave me a few possible solutions and they worked like futting a r in front
+
+
+
+Nothing before this line was used-------------------------------------------------------------------------------
