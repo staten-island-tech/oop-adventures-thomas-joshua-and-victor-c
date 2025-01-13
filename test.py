@@ -1,6 +1,9 @@
+
 import random
-from art import art 
+import art#fixed the art prob. All goodie, just had to stop defining it, let it be.
+import moneygrab
 PotionDuration = 0
+RoundDuration = 0
 class Player:
     def __init__(self, name, HP, attack, money, inventory,playerovertime, potionduration):
         self.name = name
@@ -39,7 +42,31 @@ class Player:
         else:
             print(" ")
         print(f"{self.name} attacks {enemy.name} for {damage} damage!")
-        print(Ppunch)
+        print(art.Ppunch)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -61,17 +88,26 @@ class Player:
         if kickchance >= 8:
             enemy.HP -= damage
             print(f"{self.name} kicks {enemy.name} for {damage} damage!")
-            print(Pkick)
+            print(art.Pkick)
         elif kickchance < 8:
             enemy.HP -= 0
-            print(PMisskick)
+            print(art.PMisskick)
             print(f"{self.name} missed the kick!")
+
+
+
+
+
+
 
 
     def PGuard(self):
         print(f"{self.name} is guarding!")
         self.HP += damage
        
+
+
+
 
 class Enemy:
     def __init__(self, name, HP, attack, cdrop, itemdrop):
@@ -83,24 +119,42 @@ class Enemy:
 
 
 
+
+
+
+
+
+
+
+
+
     def EnemyAI(self):
         return random.randint(1, 1)
+
+
+
 
     def EnemyPunch(self, player):
         damage = random.randint(1, self.attack)  
         player.HP -= damage
         print(f"{self.name} attacks {player.name} for {damage} damage!")
-        print(PreGstrike)
-        print(Gstrike)
+        print(art.PreGstrike)
+        print(art.Gstrike)
         if player.HP <= 0:
             print(f"{player.name} has been defeated!")
-            print(PdeathG)
-            print(HeartD)
+            print(art.PdeathG)
+            print(art.HeartD)
     def EGuard(self):
         print(f"{self.name} is guarding!")
 
+
+
+
     def EnemyCDrop(self):
         return self.cdrop
+
+
+
 
 class Stage1:
     def __init__(self, name, HP, attack, cdrop, itemdrop):
@@ -121,6 +175,38 @@ class Weapon:
 
 
 
+
+
+""" 
+from moneygrab import Collector
+
+
+merchant = Collector(700, 0, 1000, [
+    "Reversed Cursed Technique in a Nutshell",
+    "A Black Flash in a Bottle",
+    "The Eye of Agamoto",
+    "Armed And Dangerous + Again⁶",
+    "Armed And Dangerous + Again³",
+    "Armed And Dangerous + Again¹³",
+])
+
+
+
+
+print("\nYou meet a strange Collector. He offers to trade!")
+while True:
+    action = input("\nWhat would you like to do? (1: Buy, 2: Sell, 3: Leave) ").lower()
+    if action in ["1", "buy"]:
+        merchant.sell_item(J)  
+    elif action in ["2", "sell"]:
+        merchant.buy_item(J)
+    elif action in ["3", "leave"]:
+        print("\nYou left the Collector.")
+        break
+    else:
+        print("\nInvalid choice.") """
+
+
 class Dungeon:
     def __init__(self, name, creward, dreward,eamount):
         self.name = name
@@ -136,6 +222,18 @@ class Dungeon:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     def DungeonEnter(self, player):
         print(f"You have entered {self.name}, this dungeon drops {self.creward} dollars, and a {self.dreward}!")
         dstart = input("Would you like to begin the dungeon? ").lower()
@@ -143,17 +241,6 @@ class Dungeon:
             for i in range(self.eamount):
                 enemy = Enemy("Goblin", 50, 10, 20, ['Goblin Spear', 'Goblin Ear', 'Goblin Eye', "Broken Wooden Handle"])
             self.DungeonClear(J, self.dreward)
-
-
-"""
-class Merchant:
-    def __init__(self, money, gadget):
-        self.money = money
-        self.gadget = gadget
-    def PlayerSell(self, money, player, gadget): """
-
-
-
 
 
 
@@ -167,225 +254,33 @@ J.attack = J.attack + Weapon.attackboost
 
 
 
-
-
-
-
-# Standing = r"""
-#                                             O                                 <O> /
-#                                            /|\                                /|\/
-#                                            / \                                / X
-# """
-# Standingclose = r"""
-#                                                     O                   <O> /
-#                                                    /|\                  /|\/
-#                                                    / \                  / X
-# """
-# Standingclose2 = r"""
-#                                                            O    <O> /
-#                                                           /|\   /|\/
-#                                                           / \   / X
-# """
-# PreGstrike = r"""
-#                                                            O  <-<O>.--
-#                                                           /|\   /|'
-#                                                           / \   / \
-# """
-# Gstrike = r"""
-#                                                            O<---<O>.-
-#                                                           /|\  --|'
-#                                                           / \   / \
-# """
-
-
-
-
-
-
-
-
-# Ppunch = r"""        
-#                                                            O    <O> /
-#                                                           /|--- /|\/
-#                                                           / \   / X """
-# Pkick = r"""
-#                                                           O __  <O> /
-#                                                           |\___ /|\/
-#                                                            |    / X
-# """
-                   
-# PPshieldGstrike = r"""                                  O  \   <-<O>.--
-#                                                        /|\[|     /|'
-#                                                        / \ /     / \                                    
-# """
-# SelectionScreen = r"""
-#                                                           = Attack / 1 =
-#                                             = Potion / 2 =              = Gadget / 3 =
-#                                                            = Flee / 4 =
-# """
-# Gdeath = r"""
-#                                                         \O/    
-#                                                          |    <O>__
-#                                                         / \      | L
-# """
-
-
-
-
-
-
-
-
-# HeartD = r"""                                                                            ¶¶
-#                                                                                     ¶1¶1111111¶      
-#                                                              ¶¶111¶               ¶¶¶¶111111111¶¶¶1
-#                                                           ¶1¶¶¶¶¶111111¶       ¶¶¶1¶¶¶11111111¶1¶¶
-#                                                        ¶¶¶1¶1111111111¶¶1    ¶¶1¶¶¶1111111111111¶¶¶
-#                                                        ¶¶1¶¶1111111111111¶¶  ¶¶¶1¶¶¶¶1111111111111¶
-#                                                        ¶¶_¶1111111111111111¶¶ ¶¶¶¶¶¶11¶111111111111¶
-#                                                        11_¶11111111111111111¶¶   ¶¶¶¶  ¶111111111111¶¶
-#                                                        ¶¶¶¶1111111111111111¶¶¶¶  1¶¶  11111111111111¶¶
-#                                                        ¶¶¶¶11111111111¶¶¶¶¶¶¶  1¶1¶¶11111111111111¶1
-#                                                        ¶¶1¶1111111111111¶¶¶¶¶¶¶¶¶¶¶¶¶1111111111111¶¶
-#                                                        ¶¶11111111111111111111111¶¶  ¶¶¶¶¶¶1111111111¶¶¶
-#                                                         1¶111111111111111111¶¶¶¶¶¶  ¶¶¶¶11111111111¶1
-#                                                          ¶¶11111111111111111¶¶¶  ¶¶¶1111111111111¶1
-#                                                           ¶¶¶111111111111¶1¶¶¶  1¶¶111¶1111111¶11¶1
-#                                                            1¶¶¶11111111111¶¶¶¶111¶¶¶111111111¶11¶¶¶
-#                                                             ¶¶¶¶1111111111111¶¶¶¶1¶¶¶¶¶¶¶¶11¶11¶¶
-#                                                              ¶¶¶¶¶11111111111¶111¶  ¶¶¶111¶1¶¶¶
-#                                                               ¶¶¶¶¶¶111111111111¶  ¶¶¶111¶¶¶1
-#                                                                 1¶¶¶¶¶11111111¶¶  ¶¶¶¶111¶¶
-#                                                                  ¶¶¶¶¶¶¶1111111  ¶¶¶11¶¶1
-#                                                                    1¶¶¶¶¶¶1111¶¶¶1¶¶¶¶
-#                                                                       ¶¶¶¶¶1¶¶¶¶¶1¶
-#                                                                          ¶1¶¶¶1¶¶¶
-#                                                                            11¶
-
-
-
-
-
-
-
-
-
-
-
-# """
-# PdeathG = r"""
-#                                                         _________
-#                                                           \<O>/  
-#                                                             |
-#                                                 ‗/‾‾|o     / \
-# """
-# PMisskick = r"""
-#                                                           O __  <O> /
-#                                                           |\___--|\/
-#                                                            |    / X
-
-
-#                                                         O___/‾‾\<O> /
-#                                                        /|   |    |\/
-#                                                                 / X      
-       
-
-#                                                       .   _    \<O> /
-#                                                      O⊥__/       |\/
-#                                                                 / X
-
-
-#                                                                __<O> /
-#                                                                   |\/
-#                                                     ‗‗O___/\     / X
-
-
-#                                                           O     <O> /
-#                                                          /\_    /|\/
-#                                                        _」‾‾|   / X
-
-# """
-
-
-
-
-# RegenDrink = r"""
-#                                                            O  <O>    \
-#                                                            |==-|/     \
-#                                                           / \ / /      v
-
-
-#                                                         O︿                   <O>
-#                                                         |--♁                  _/\
-#                                                        / \                  |‾‾ |_                                    
-
-                         
-#                                            O ⸧>   +                    <O> /
-#                                     .  +  /|                           /|\/
-#                                           / \     +                    / X
-
-
-
-
-
-
-
-
-# """
-# WeaknessDrink = r"""
-#                                                            O  <O>    \
-#                                                            |==-|/     \
-#                                                           / \ / /      v
-
-
-#                                                         O︿                   <O>
-#                                                         |--♁                  _/\
-#                                                        / \                  |‾‾ |_                                    
-
-
-                        
-#                                            O ⸧>  ⇓                     <O> /
-#                                 .      ⇓  /|                           /|\/
-#                                           / \   ⇓                      / X
-
-# """
-# PoisonDrink = r"""
-#                                                            O  <O>    \
-#                                                            |==-|/     \
-#                                                           / \ / /      v
-
-
-#                                                         O︿                   <O>
-#                                                         |--♁                  _/\
-#                                                        / \                  |‾‾ |_                                    
-
-
-                        
-#                                            O ⸧>  ☠                    <O> /
-#                                    .  ☠   /|                          /|\/
-#                                           / \ ☠                       / X
-
-
-# """
-# HPDrink = r"""
-#                                                            O  <O>    \
-#                                                            |==-|/     \
-#                                                           / \ / /      v
-
-
-#                                                         O︿                   <O>
-#                                                         |--♁                  _/\
-#                                                        / \                  |‾‾ |_                                    
-
-
-                        
-#                                            O ⸧> ↑                      <O> /
-#                                     . ↑   /|                           /|\/
-#                                           / \     ↑                    / X
-
-
-# """
-
+from moneygrab import Collector
+
+
+merchant = Collector(700, 0, 1000, [
+    "Reversed Cursed Technique in a Nutshell",
+    "A Black Flash in a Bottle",
+    "The Eye of Agamoto",
+    "Armed And Dangerous + Again⁶",
+    "Armed And Dangerous + Again³",
+    "Armed And Dangerous + Again¹³",
+])
+
+
+
+
+print("\nYou meet a strange Collector. He offers to trade!")
+while True:
+    action = input("\nWhat would you like to do? (1: Buy, 2: Sell, 3: Leave) ").lower()
+    if action in ["1", "buy"]:
+        merchant.sell_item(J)  
+    elif action in ["2", "sell"]:
+        merchant.buy_item(J)
+    elif action in ["3", "leave"]:
+        print("\nYou left the Collector.")
+        break
+    else:
+        print("\nInvalid choice.")
 
 
 
@@ -404,17 +299,39 @@ if start in ("yes", "y", "1"):
 
 
 
+
+
+
+
+
+
+
+
+
     if mapselect in ("graveyard", "2"):
         enemy = Enemy("Zombie", 100, 15, 50, ["Zombie Hand", "Zombie Brain", "Rotten Essence"])
+
+
+
+
+
+
 
 
     while J.HP > 0 and enemy.HP > 0:
         SelectionScreen = rf"""
                {enemy.name}                           = Attack / 1 =                               {J.name}                     Potion Duration:
                HP: {enemy.HP}            = Potion / 2 =              = Gadget / 3 =                HP: {J.HP}                  {J.potionduration}
-               Attack: {enemy.attack}                      = Flee / 4 =                            Attack: {J.attack}
+               Attack: {enemy.attack}                      = Flee / 4 =                            Attack: {J.attack}          {RoundDuration}
         """
         PotionDuration -= 1
+        RoundDuration += 1
+
+
+
+
+
+
 
 
         print(SelectionScreen)
@@ -422,6 +339,18 @@ if start in ("yes", "y", "1"):
         if control in ["punch", "1", "p"]:
                 J.PlayerPunch(enemy)    
         elif control in ["potion","pot","2"]:
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -434,10 +363,6 @@ if start in ("yes", "y", "1"):
         elif control in ["kick", "k", "3"]:
                 J.PlayerKick(enemy)
        
-
-
-
-
         elif control == "flee":
             break  
 
@@ -445,8 +370,6 @@ if start in ("yes", "y", "1"):
         else:
             print("Invalid move! Please enter punch or guard.")
    
-
-
 
 
         if enemy.HP <= 0:
@@ -464,12 +387,10 @@ if start in ("yes", "y", "1"):
        
     if J.HP > 0:
         print(f"{enemy.name} has been defeated!")
-        print(Gdeath)
+        print(art.Gdeath)
         print(f"{J.name} wins the battle!")
         cash_gain = enemy.EnemyCDrop()
         J.money += cash_gain
         print(f"{J.name} now has {J.money} (+{cash_gain}) dollars!")
     else:
         print(f"{enemy.name} wins the battle!")
-
-
