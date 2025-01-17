@@ -441,8 +441,15 @@ while game_running:
 
 
 
-        restart_choice = input("Do you want to restart the game? (yes/no): ").lower()
-        if restart_choice not in ["yes", "y"]:
-            game_running = False
-            print("Thanks for playing! See you next time!")
+restart_choice = input("Do you want to restart the game? (yes/no): ").lower()
+if restart_choice in ["yes", "y"]:
+    # Reset variables for a fresh start
+    map = None
+    AmountSelect = 0
+    enemiesfought = 0
+    sprompt = True
+    print("\nRestarting the game...\n")
+else:
+    game_running = False
+    print("Thanks for playing! See you next time!")
 
