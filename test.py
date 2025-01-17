@@ -183,6 +183,9 @@ J = Player("MCHammer", 0, 10, 0, [], 0, 0, 0, 0.60)
 J.attack = J.attack + Weapon.attackboost
 J.HP = J.HP + SArmor.hpboost
 PotentialMult = 0
+The_Eye_Of_Agamoto = Weapon("The Eye Of Agamoto",100*J.potionduration)
+if The_Eye_Of_Agamoto in J.inventory:
+    J.attack = J.attack + The_Eye_Of_Agamoto.attackboost
 
 # from moneygrab import Collector
 
@@ -291,7 +294,7 @@ while game_running:
             merchant = Collector(700, 0, 1000, [
                 "Reversed Cursed Technique in a Nutshell",
                 "A Black Flash in a Bottle",
-                "The Eye of Agamoto"
+                "The_Eye_Of_Agamoto"
             ])
 
 
@@ -334,7 +337,7 @@ while game_running:
                     enemy = Stage1Boss("Goblin Lord", 200, 30, 100, ["Goblin Crown", "Goblin Sword"])
                 print(f"You have encountered {enemy.name}!")
                 enemiesfought += 1
-    
+
                 while J.HP > 0 and enemy.HP > 0:
                     SelectionScreen = rf"""
                         {enemy.name}                       = Punch / 1 =                 {J.name}                       Potion Duration: {J.potionduration}
@@ -348,6 +351,8 @@ while game_running:
                     if J.potentialtimer == 0 and PotentialMult == 1:
                         J.attack = J.attack/1.2
                         PotentialMult = 0
+                    
+
                     print(SelectionScreen)
                     if enemy.name in ["Goblin Lord", "Grim Reaper"]:
                         enemy.check_stage_transition()
@@ -431,13 +436,14 @@ while game_running:
                 print(f"{J.name} has received an additional {enemiesfought*reward} dollars for clearing this!")
                 J.money += enemiesfought * reward
                 print(f"{J.name} now has {J.money} dollars!")
-                sprompt = True
+                break
             else:
                 print(f"{enemy.name} wins the battle!")
                 print(f"{J.name} was robbed by {enemy.name} for {enemy.cdrop} dollars!")
                 J.money -= enemy.cdrop
                 print(f"{J.name} now has {J.money} (-{enemy.cdrop}) dollars")
                 aprompt = False
+                break
 
 
 
